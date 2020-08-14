@@ -80,43 +80,43 @@ Partial Class Loading
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(132, 277)
+        Me.Label4.Location = New System.Drawing.Point(17, 277)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(128, 18)
+        Me.Label4.Size = New System.Drawing.Size(374, 18)
         Me.Label4.TabIndex = 121
         Me.Label4.Text = "All rights reserved."
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(44, 261)
+        Me.Label3.Location = New System.Drawing.Point(14, 261)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(323, 18)
+        Me.Label3.Size = New System.Drawing.Size(377, 18)
         Me.Label3.TabIndex = 120
         Me.Label3.Text = "Copyright © 2019-2020 Aiolosinnovativesolutions"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LabelPOSVersion
         '
-        Me.LabelPOSVersion.AutoSize = True
         Me.LabelPOSVersion.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelPOSVersion.Location = New System.Drawing.Point(132, 245)
+        Me.LabelPOSVersion.Location = New System.Drawing.Point(11, 245)
         Me.LabelPOSVersion.Name = "LabelPOSVersion"
-        Me.LabelPOSVersion.Size = New System.Drawing.Size(55, 18)
+        Me.LabelPOSVersion.Size = New System.Drawing.Size(380, 18)
         Me.LabelPOSVersion.TabIndex = 119
         Me.LabelPOSVersion.Text = "Version"
+        Me.LabelPOSVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(109, 223)
+        Me.Label1.Location = New System.Drawing.Point(20, 224)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(187, 19)
+        Me.Label1.Size = New System.Drawing.Size(371, 19)
         Me.Label1.TabIndex = 118
         Me.Label1.Text = "Point Of Sales System"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'ProgressBar1
         '
@@ -130,7 +130,7 @@ Partial Class Loading
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(69, 43)
+        Me.PictureBox1.Location = New System.Drawing.Point(69, 49)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(252, 136)
         Me.PictureBox1.TabIndex = 116
@@ -153,7 +153,6 @@ Partial Class Loading
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
