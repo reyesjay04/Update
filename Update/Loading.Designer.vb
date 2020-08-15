@@ -43,17 +43,17 @@ Partial Class Loading
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.Panel2)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.LabelPOSVersion)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.ProgressBar1)
-        Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(404, 365)
+        Me.Panel1.Size = New System.Drawing.Size(404, 331)
         Me.Panel1.TabIndex = 1
         '
         'Panel2
@@ -61,7 +61,7 @@ Partial Class Loading
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(160, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Panel2.Controls.Add(Me.LabelProgressbarStatus)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(0, 316)
+        Me.Panel2.Location = New System.Drawing.Point(0, 288)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(402, 24)
         Me.Panel2.TabIndex = 122
@@ -81,7 +81,7 @@ Partial Class Loading
         'Label4
         '
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(17, 277)
+        Me.Label4.Location = New System.Drawing.Point(14, 257)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(374, 18)
         Me.Label4.TabIndex = 121
@@ -91,9 +91,9 @@ Partial Class Loading
         'Label3
         '
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(14, 261)
+        Me.Label3.Location = New System.Drawing.Point(14, 239)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(377, 18)
+        Me.Label3.Size = New System.Drawing.Size(374, 18)
         Me.Label3.TabIndex = 120
         Me.Label3.Text = "Copyright © 2019-2020 Aiolosinnovativesolutions"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -101,9 +101,9 @@ Partial Class Loading
         'LabelPOSVersion
         '
         Me.LabelPOSVersion.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelPOSVersion.Location = New System.Drawing.Point(11, 245)
+        Me.LabelPOSVersion.Location = New System.Drawing.Point(14, 221)
         Me.LabelPOSVersion.Name = "LabelPOSVersion"
-        Me.LabelPOSVersion.Size = New System.Drawing.Size(380, 18)
+        Me.LabelPOSVersion.Size = New System.Drawing.Size(374, 18)
         Me.LabelPOSVersion.TabIndex = 119
         Me.LabelPOSVersion.Text = "Version"
         Me.LabelPOSVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -111,9 +111,9 @@ Partial Class Loading
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(20, 224)
+        Me.Label1.Location = New System.Drawing.Point(14, 202)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(371, 19)
+        Me.Label1.Size = New System.Drawing.Size(374, 18)
         Me.Label1.TabIndex = 118
         Me.Label1.Text = "Point Of Sales System"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -121,16 +121,16 @@ Partial Class Loading
         'ProgressBar1
         '
         Me.ProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ProgressBar1.Location = New System.Drawing.Point(0, 340)
+        Me.ProgressBar1.Location = New System.Drawing.Point(0, 312)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(402, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(402, 17)
         Me.ProgressBar1.TabIndex = 117
         '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(69, 49)
+        Me.PictureBox1.Location = New System.Drawing.Point(73, 50)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(252, 136)
         Me.PictureBox1.TabIndex = 116
@@ -146,9 +146,10 @@ Partial Class Loading
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(404, 365)
+        Me.ClientSize = New System.Drawing.Size(404, 331)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Loading"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
