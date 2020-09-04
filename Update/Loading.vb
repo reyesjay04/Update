@@ -153,8 +153,6 @@ Public Class Loading
     End Sub
     Private Sub GetCloudCredentials()
         Try
-
-
             Dim sql = "SELECT `C_Server`, `C_Username`, `C_Password`, `C_Database`, `C_Port` FROM `loc_settings` WHERE `settings_id` = 1"
             Dim cmd As MySqlCommand = New MySqlCommand(sql, CheckLocalConnection)
             Dim da As MySqlDataAdapter = New MySqlDataAdapter(cmd)
@@ -165,8 +163,6 @@ Public Class Loading
             CloudPassword = dt(0)(2)
             CloudDatabase = dt(0)(3)
             CloudPort = dt(0)(4)
-
-
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
