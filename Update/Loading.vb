@@ -238,9 +238,6 @@ Public Class Loading
     End Sub
     Private Sub GetNewUpdates()
         Try
-            TextBox1.Text = ConvertB64ToString(FTPServer).ToString
-            TextBox2.Text = ConvertB64ToString(FTPUSername).ToString
-            TextBox3.Text = ConvertB64ToString(FTPPassword).ToString
             Dim request As FtpWebRequest =
       WebRequest.Create(ConvertB64ToString(FTPServer).ToString)
             request.Credentials = New NetworkCredential(ConvertB64ToString(FTPUSername).ToString, ConvertB64ToString(FTPPassword).ToString)
