@@ -78,13 +78,16 @@ Module PublicFunctions
     End Function
     Public Function CheckCloudConnection() As MySqlConnection
         Dim Con As MySqlConnection = New MySqlConnection
-        Try
-            Con.ConnectionString = "server=" & Trim(ConvertB64ToString(CloudServer)) &
+        Dim str As String = "server=" & Trim(ConvertB64ToString(CloudServer)) &
             ";user id= " & Trim(ConvertB64ToString(CloudUsername)) &
             ";password=" & Trim(ConvertB64ToString(CloudPassword)) &
             ";database=" & Trim(ConvertB64ToString(CloudDatabase)) &
             ";port=" & Trim(ConvertB64ToString(CloudPort))
+        Try
+            Con.ConnectionString = str
             Con.Open()
+            MsgBox(Con.ConnectionString)
+            MsgBox(str)
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
