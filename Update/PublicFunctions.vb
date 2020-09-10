@@ -86,8 +86,6 @@ Module PublicFunctions
         Try
             Con.ConnectionString = str
             Con.Open()
-            MsgBox(Con.ConnectionString)
-            MsgBox(str)
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
