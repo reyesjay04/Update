@@ -98,17 +98,41 @@ Public Class Loading
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
         ProgressBar1.Value = e.ProgressPercentage
     End Sub
+    Private Sub CreateFolder(Optional ByVal Attributes As System.IO.FileAttributes = IO.FileAttributes.Normal)
+        Try
+            If My.Computer.FileSystem.DirectoryExists(Application.StartupPath & "\update") Then
+                Dim logInfo = My.Computer.FileSystem.GetDirectoryInfo(Application.StartupPath & "\update")
+            Else
+                My.Computer.FileSystem.CreateDirectory(Application.StartupPath & "\update")
+                If Not Attributes = IO.FileAttributes.Normal Then
+                    My.Computer.FileSystem.GetDirectoryInfo(Application.StartupPath & "\update").Attributes = Attributes
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        CreateFolder()
+    End Sub
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
-        If CheckForInternetConnection() = True Then
-            If CanBeUpdate = True Then
-                If LocalVersion <> CloudVersion Then
-                    Dim Message = MessageBox.Show("Your POS system is not currently up to date. Would you like to update it now?", "POS System Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
-                    If Message = DialogResult.OK Then
-                        ProgressBar1.Maximum = 100
-                        ProgressBar1.Value = 0
-                        BackgroundWorker2.WorkerReportsProgress = True
-                        BackgroundWorker2.WorkerSupportsCancellation = True
-                        BackgroundWorker2.RunWorkerAsync()
+        Try
+            If CheckForInternetConnection() = True Then
+                If CanBeUpdate = True Then
+                    If LocalVersion <> CloudVersion Then
+                        Dim Message = MessageBox.Show("Your POS system is not currently up to date. Would you like to update it now?", "POS System Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
+                        If Message = DialogResult.OK Then
+                            ProgressBar1.Maximum = 100
+                            ProgressBar1.Value = 0
+                            BackgroundWorker2.WorkerReportsProgress = True
+                            BackgroundWorker2.WorkerSupportsCancellation = True
+                            BackgroundWorker2.RunWorkerAsync()
+                        Else
+                            My.Settings.UpdateVersion = CloudVersion
+                            My.Settings.Save()
+                            Process.Start(startPath & "\Debug\POS.exe")
+                            Application.Exit()
+                        End If
                     Else
                         My.Settings.UpdateVersion = CloudVersion
                         My.Settings.Save()
@@ -122,16 +146,13 @@ Public Class Loading
                     Application.Exit()
                 End If
             Else
-                My.Settings.UpdateVersion = CloudVersion
-                My.Settings.Save()
+                MsgBox("Internet connection is not available")
                 Process.Start(startPath & "\Debug\POS.exe")
                 Application.Exit()
             End If
-        Else
-            MsgBox("Internet connection is not available")
-            Process.Start(startPath & "\Debug\POS.exe")
-            Application.Exit()
-        End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
     End Sub
     Private Sub CheckVersionLocal()
         Try
@@ -176,6 +197,12 @@ Public Class Loading
                 Thread.Sleep(50)
                 If i = 10 Then
                     Thread1 = New Thread(AddressOf GetFtpCred)
+                    Thread1.Start()
+                    ThreadList.Add(Thread1)
+                    For Each t In ThreadList
+                        t.Join()
+                    Next
+                    Thread1 = New Thread(AddressOf CreateFolder)
                     Thread1.Start()
                     ThreadList.Add(Thread1)
                     For Each t In ThreadList
@@ -297,4 +324,6 @@ Public Class Loading
             MsgBox(ex.ToString)
         End Try
     End Sub
+
+
 End Class
