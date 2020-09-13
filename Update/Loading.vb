@@ -112,9 +112,6 @@ Public Class Loading
             MsgBox(ex.ToString)
         End Try
     End Sub
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        CreateFolder()
-    End Sub
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
         Try
             If CheckForInternetConnection() = True Then
