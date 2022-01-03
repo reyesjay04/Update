@@ -105,7 +105,7 @@ Partial Class Loading
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(374, 18)
         Me.Label3.TabIndex = 120
-        Me.Label3.Text = "Copyright © 2019-2020 Aiolosinnovativesolutions"
+        Me.Label3.Text = "Copyright © 2021 - Spearhead MBC Trading"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LabelPOSVersion
