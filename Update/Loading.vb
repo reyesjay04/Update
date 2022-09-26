@@ -3,14 +3,16 @@ Imports System.Threading
 Imports System.Net
 Imports System.IO
 Public Class Loading
-    Dim CanBeUpdate As Boolean = False
-    Dim Thread1 As Thread
-    Dim ThreadList As List(Of Thread) = New List(Of Thread)
-    Dim LocalVersion As String = ""
-    Dim CloudVersion As String = ""
-    Dim startPath As String = Application.StartupPath & "\update"
-    Dim Deletepath As String = Application.StartupPath & "\update\Debug"
-
+    Property CanBeUpdate As Boolean = False
+    Property Thread1 As Thread
+    Property ThreadList As List(Of Thread) = New List(Of Thread)
+    Property LocalVersion As String = ""
+    Property CloudVersion As String = ""
+    Property startPath As String = Application.StartupPath & "\update"
+    Property Deletepath As String = Application.StartupPath & "\update\Debug"
+    Property FTPServer As String = ""
+    Property FTPUSername As String = ""
+    Property FTPPassword As String = ""
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If My.Settings.UpdateVersion = "" Then
             LabelPOSVersion.Text = "Version 0.0.0"
@@ -64,9 +66,9 @@ Public Class Loading
                 Thread.Sleep(50)
                 If CanBeUpdate = True Then
                     If i = 10 Then
-                        If CheckForInternetConnection() = True Then
-                            If LoadConn(localconnectionpath) = True Then
-                                If CloudConnectionExist() = True Then
+                        If CheckForInternetConnection() Then
+                            If LoadConn(localconnectionpath) Then
+                                If CloudConnectionExist() Then
                                     Thread1 = New Thread(AddressOf GetCloudCredentials)
                                     Thread1.Start()
                                     ThreadList.Add(Thread1)
@@ -114,8 +116,8 @@ Public Class Loading
     End Sub
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
         Try
-            If CheckForInternetConnection() = True Then
-                If CanBeUpdate = True Then
+            If CheckForInternetConnection() Then
+                If CanBeUpdate Then
                     If LocalVersion <> CloudVersion Then
                         Dim Message = MessageBox.Show("Your POS system is not currently up to date. Would you like to update it now?", "POS System Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                         If Message = DialogResult.OK Then
@@ -124,6 +126,9 @@ Public Class Loading
                             BackgroundWorker2.WorkerReportsProgress = True
                             BackgroundWorker2.WorkerSupportsCancellation = True
                             BackgroundWorker2.RunWorkerAsync()
+
+                            ' FTPDownloadFile(Application.StartupPath & "\update\update.zip", "ftp://famousbelgianwaffles.com", "devmaster@dgpos.app", "password2022")
+
                         Else
                             My.Settings.UpdateVersion = CloudVersion
                             My.Settings.Save()
@@ -211,6 +216,13 @@ Public Class Loading
                     For Each t In ThreadList
                         t.Join()
                     Next
+
+                    'Thread1 = New Thread(Sub() FTPDownloadFile(Application.StartupPath & "\update\update.zip"), "ftp://famousbelgianwaffles.com", "ftppos@famousbelgianwaffles.com", "password2022")
+                    'Thread1.Start()
+                    'ThreadList.Add(Thread1)
+                    'For Each t In ThreadList
+                    '    t.Join()
+                    'Next
                     Thread1 = New Thread(AddressOf extract)
                     Thread1.Start()
                     ThreadList.Add(Thread1)
@@ -239,9 +251,7 @@ Public Class Loading
         Process.Start(startPath & "\Debug\POS.exe")
         Application.Exit()
     End Sub
-    Dim FTPServer As String = ""
-    Dim FTPUSername As String = ""
-    Dim FTPPassword As String = ""
+
     Private Sub GetFtpCred()
         Try
             Dim sql = "SELECT `C_Ftp_Server`, `C_Ftp_Username`, `C_Ftp_Password` FROM admin_settings_org WHERE settings_id = 1"
@@ -256,14 +266,43 @@ Public Class Loading
             MsgBox(ex.ToString)
         End Try
     End Sub
+    Private Sub FTPDownloadFile(ByVal downloadpath As String, ByVal ftpuri As String, ByVal ftpusername As String, ByVal ftppassword As String)
+        'Create a WebClient.
+        Dim request As New WebClient()
+
+        ' Confirm the Network credentials based on the user name and password passed in.
+        request.Credentials = New NetworkCredential(ftpusername, ftppassword)
+
+        'Read the file data into a Byte array
+        Dim bytes() As Byte = request.DownloadData(ftpuri)
+
+        Try
+            '  Create a FileStream to read the file into
+            Dim DownloadStream As FileStream = IO.File.Create(downloadpath)
+            '  Stream this data into the file
+            DownloadStream.Write(bytes, 0, bytes.Length)
+            '  Close the FileStream
+            DownloadStream.Close()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            Exit Sub
+        End Try
+
+        MessageBox.Show("Process Complete")
+
+    End Sub
     Private Sub GetNewUpdates()
         Try
-            Dim request As FtpWebRequest =
-      WebRequest.Create(ConvertB64ToString(FTPServer).ToString)
-            request.Credentials = New NetworkCredential(ConvertB64ToString(FTPUSername).ToString, ConvertB64ToString(FTPPassword).ToString)
+            'FTPServer = ConvertB64ToString(FTPServer).ToString
+            'FTPUSername = ConvertB64ToString(FTPUSername).ToString
+            'FTPPassword = ConvertB64ToString(FTPPassword).ToString
+
+            Dim request As FtpWebRequest = WebRequest.Create(FTPServer & "/software-update/update.zip")
+            request.Credentials = New NetworkCredential(FTPUSername, FTPPassword)
             request.Method = WebRequestMethods.Ftp.DownloadFile
-            Using ftpStream As Stream = request.GetResponse().GetResponseStream(),
-                  fileStream As Stream = File.Create(Application.StartupPath & "\update\update.zip")
+
+            Using ftpStream As Stream = request.GetResponse().GetResponseStream(), fileStream As Stream = File.Create(Application.StartupPath & "\update\update.zip")
                 Dim buffer As Byte() = New Byte(10240 - 1) {}
                 Dim read As Integer
                 Do
